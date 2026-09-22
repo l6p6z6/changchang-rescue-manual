@@ -4,7 +4,7 @@
   const STORIES = window.STORY_DATA.story;
   const UNLOCK_AT = [0, 100, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000];
   const DAILY_LIMIT = 1000;
-  const PRAISE_MESSAGES = ["宝贝蒸蚌！", "表扬宝宝", "畅畅是乖宝宝"];
+  const PRAISE_MESSAGES = ["宝贝蒸蚌！", "表扬宝宝", "宝宝是乖宝宝"];
   const $ = (selector) => document.querySelector(selector);
   const $$ = (selector) => Array.from(document.querySelectorAll(selector));
 
