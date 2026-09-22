@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <defs><linearGradient id="cover" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d896a2"/><stop offset="1" stop-color="#9c6171"/></linearGradient><linearGradient id="water" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#b9e2e7"/><stop offset="1" stop-color="#659daf"/></linearGradient></defs>
+  <rect x="16" y="16" width="224" height="224" rx="66" fill="#f5eee7"/>
+  <path d="M53 62Q109 43 151 61L151 191Q110 173 53 190Z" fill="#e8d8ce" stroke="#51474a" stroke-width="5"/>
+  <path d="M203 62Q147 43 105 61L105 191Q146 173 203 190Z" fill="url(#cover)" stroke="#51474a" stroke-width="5"/>
+  <path d="M105 61V191" stroke="#fff6f1" stroke-width="4" opacity=".62"/>
+  <path d="M154 113C170 127 182 143 182 160C182 181 166 192 149 192C132 192 117 181 117 160C117 143 137 126 154 113Z" fill="url(#water)"/>
+  <path d="M154 150C139 140 135 131 141 124C147 117 156 122 154 129C153 122 162 117 168 124C175 132 168 141 154 150Z" fill="#e7b0b8"/>
+  <circle cx="137" cy="141" r="3.2" fill="#fff"/><circle cx="165" cy="141" r="3.2" fill="#fff"/>
+</svg>

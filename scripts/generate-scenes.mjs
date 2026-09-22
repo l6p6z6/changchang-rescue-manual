@@ -74,8 +74,6 @@ function bottle(x, y, scale = 1, fill = 0.72, rotate = -5) {
     <path d="M-15 -55 L-15 -37 L-34 -17 L-34 70 Q-34 88 -16 88 L16 88 Q34 88 34 70 L34 -17 L15 -37 L15 -55 Z" fill="#FFFFFF" stroke="${C.ink}" stroke-width="4"/>
     <clipPath id="bottleClip-${Math.round(x)}-${Math.round(y)}"><path d="M-15 -42 L-15 -31 L-30 -13 L-30 68 Q-30 84 -14 84 L14 84 Q30 84 30 68 L30 -13 L15 -31 L15 -42 Z"/></clipPath>
     <g clip-path="url(#bottleClip-${Math.round(x)}-${Math.round(y)})"><rect x="-34" y="${waterY}" width="68" height="170" fill="#8FD2E5"/><path d="M-36 ${waterY} Q-22 ${waterY - 9} -7 ${waterY} T23 ${waterY} T52 ${waterY}" fill="none" stroke="#EAFBFF" stroke-width="6" opacity="0.72"/></g>
-    <path d="M-7 2 Q0 8 7 2" fill="none" stroke="${C.ink}" stroke-width="3" stroke-linecap="round"/>
-    <circle cx="-10" cy="-3" r="2.4" fill="${C.ink}"/><circle cx="10" cy="-3" r="2.4" fill="${C.ink}"/>
     <rect x="-25" y="-9" width="8" height="39" rx="4" fill="#FFFFFF" opacity="0.35"/>
   </g>`;
 }
@@ -157,15 +155,14 @@ function beast(x = 0, y = 0, scale = 1, opts = {}) {
 function sceneCover() {
   return `<g>
     <circle cx="1030" cy="120" r="160" fill="#BFE8F0" opacity="0.3"/><circle cx="84" cy="600" r="130" fill="#FFD3CC" opacity="0.34"/>
-    ${changchang(250, 350, 1.12, { bottle: true, phone: true })}
-    <g transform="translate(792 332) rotate(4)">
-      <rect x="-182" y="-236" width="364" height="472" rx="52" fill="${C.ink}"/><rect x="-166" y="-218" width="332" height="436" rx="38" fill="#354B6D"/>
-      <circle cx="0" cy="-226" r="8" fill="#2B2730"/><circle cx="0" cy="0" r="92" fill="#FFF8F1" opacity="0.93"/>
-      ${boyfriend(0, 34, 0.65)}
+    ${bottle(300, 373, 1.72, 0.72, -8)}
+    <g transform="translate(805 340) rotate(4)">
+      <rect x="-196" y="-250" width="392" height="500" rx="52" fill="${C.ink}"/><rect x="-178" y="-232" width="356" height="464" rx="38" fill="#354B6D"/>
+      <circle cx="0" cy="-240" r="8" fill="#2B2730"/><circle cx="0" cy="0" r="92" fill="#FFF8F1" opacity="0.93"/>
       <path d="M-118 -124 Q-75 -152 -34 -125 L-34 -104 Q-77 -129 -118 -105 Z" fill="#FFD3D8"/>${screenLine(-98, -117, 48, "#D66E82", 0.75, 10)}
       <path d="M40 -75 Q78 -103 119 -77 L119 -56 Q79 -81 40 -58 Z" fill="#BFE8F0"/>${screenLine(58, -69, 43, "#4E9DBA", 0.72, 10)}
     </g>
-    ${heart(596, 178, 1.2)}${heart(1050, 100, 0.62)}${sparkle(1050, 258, 0.9)}${drop(647, 596, 0.72, 0.82)}${drop(1092, 460, 0.5, 0.6)}
+    ${heart(590, 170, 1.2)}${heart(1050, 100, 0.62)}${sparkle(1050, 258, 0.9)}${drop(650, 590, 0.72, 0.82)}${drop(1092, 460, 0.5, 0.6)}
   </g>`;
 }
 
@@ -175,29 +172,29 @@ function scenePhone() {
     <path d="M0 542 L235 441 L430 533 L624 426 L843 524 L1036 425 L1200 490 L1200 720 L0 720 Z" fill="#2E3D5A" opacity="0.58"/>
     <rect x="795" y="259" width="227" height="243" rx="14" fill="#303E5A" stroke="${C.ink}" stroke-width="8"/>
     <rect x="833" y="300" width="58" height="58" rx="9" fill="#FFE7A4"/><rect x="923" y="300" width="58" height="58" rx="9" fill="#FFE7A4"/><rect x="833" y="382" width="58" height="58" rx="9" fill="#FFE7A4"/><rect x="923" y="382" width="58" height="58" rx="9" fill="#FFE7A4"/>
-    ${changchang(255, 370, 1.25, { phone: true })}
-    <g transform="translate(780 152) rotate(5)"><rect x="-127" y="-86" width="254" height="172" rx="30" fill="#FFF9F0" stroke="${C.ink}" stroke-width="4"/>${screenLine(-91, -46, 135, C.blue, 0.75, 13)}${screenLine(-91, -16, 184, "#D4E8EA", 1, 11)}${screenLine(-91, 14, 152, "#D4E8EA", 1, 11)}<path d="M-111 72 L-83 34 L-55 72 Z" fill="#FFF9F0" stroke="${C.ink}" stroke-width="4"/></g>
-    ${heart(993, 535, 1.15)}${sparkle(126, 555, 0.8)}
+    ${phone(420, 359, 1.38, "#2E435C", `<g><rect x="-54" y="-96" width="108" height="48" rx="18" fill="#FFD3D8"/><rect x="-54" y="-33" width="84" height="42" rx="17" fill="#BFE8F0"/><rect x="-54" y="24" width="102" height="42" rx="17" fill="#FFF2CC"/><circle cx="45" cy="90" r="13" fill="#EF91A2"/></g>`)}
+    <g transform="translate(785 151) rotate(5)"><rect x="-127" y="-86" width="254" height="172" rx="30" fill="#FFF9F0" stroke="${C.ink}" stroke-width="4"/>${screenLine(-91, -46, 135, C.blue, 0.75, 13)}${screenLine(-91, -16, 184, "#D4E8EA", 1, 11)}${screenLine(-91, 14, 152, "#D4E8EA", 1, 11)}<path d="M-111 72 L-83 34 L-55 72 Z" fill="#FFF9F0" stroke="${C.ink}" stroke-width="4"/></g>
+    ${bottle(1035, 542, 0.88, 0.62, 9)}${heart(993, 535, 1.15)}${sparkle(126, 555, 0.8)}
   </g>`;
 }
 
 function sceneTask() {
   return `<g>
-    ${changchang(245, 368, 1.17, { armRaised: true })}
-    <g transform="translate(777 338) rotate(-3)">
+    ${bottle(240, 420, 1.42, 0.7, -8)}${drop(408, 251, 0.86, 0.74)}
+    <g transform="translate(650 350) rotate(-3) scale(1.08)">
       <rect x="-196" y="-270" width="392" height="540" rx="56" fill="${C.ink}"/><rect x="-178" y="-250" width="356" height="500" rx="40" fill="#EFFBFD"/>
       <circle cx="0" cy="-184" r="72" fill="#C9EFF5"/>${drop(0, -184, 1.56, 0.9, C.blueDeep)}
       ${screenLine(-119, -64, 238, C.blueDeep, 0.78, 13)}${screenLine(-119, -30, 197, "#84C1D3", 0.7, 11)}${screenLine(-119, 2, 220, "#84C1D3", 0.72, 11)}
       <rect x="-119" y="63" width="238" height="68" rx="24" fill="#FFF0F2"/><path d="M-32 86 H39 M3 71 V124" stroke="${C.coralDark}" stroke-width="9" stroke-linecap="round"/>
       <rect x="-112" y="169" width="224" height="13" rx="6" fill="${C.coral}" opacity="0.72"/><rect x="-112" y="195" width="178" height="11" rx="5" fill="${C.blue}" opacity="0.58"/>
     </g>
-    ${drop(568, 172, 0.8, 0.72)}${drop(1050, 125, 0.55, 0.6, C.coral)}${sparkle(1010, 523, 0.82)}
+    ${drop(1015, 152, 0.72, 0.72)}${sparkle(1030, 530, 0.82)}
   </g>`;
 }
 
 function sceneDay1() {
   return `<g>
-    ${changchang(250, 340, 1.12, { bottle: true })}
+    ${bottle(275, 378, 1.48, 0.68, -7)}
     <rect x="488" y="101" width="632" height="492" rx="36" fill="#FFFFFF" opacity="0.77" stroke="${C.ink}" stroke-width="4"/><path d="M540 262 H1062" stroke="#E9DCD6" stroke-width="5" stroke-linecap="round" stroke-dasharray="12 16"/>
     ${[46,46,58,46,38].map((size, i) => {
       const x = 565 + i * 112, color = i < 4 ? C.blue : C.coral;
@@ -212,7 +209,7 @@ function scenePact() {
   return `<g>
     <rect x="367" y="82" width="466" height="552" rx="38" fill="#FFFDF9" stroke="${C.ink}" stroke-width="5"/>
     <path d="M430 214 Q600 138 770 214" fill="none" stroke="${C.coral}" stroke-width="7" opacity="0.5"/><path d="M430 222 Q600 151 770 222" fill="none" stroke="${C.blue}" stroke-width="7" opacity="0.55"/>
-    ${changchang(245, 388, 0.93, { bottle: true })}${boyfriend(954, 390, 0.93)}
+    ${bottle(250, 397, 1.2, 0.72, -6)}${bottle(950, 397, 1.2, 0.72, 6)}
     <path d="M341 368 C472 468 730 471 858 370" fill="none" stroke="${C.coral}" stroke-width="7" stroke-linecap="round" stroke-dasharray="4 18"/><path d="M341 381 C472 482 730 485 858 383" fill="none" stroke="${C.blue}" stroke-width="7" stroke-linecap="round" stroke-dasharray="4 18"/>
     ${drop(602, 365, 1.35, 0.92)}${heart(602, 235, 1.25)}${sparkle(515, 209, 0.8)}${sparkle(694, 208, 0.8)}
     <g transform="translate(600 523)"><rect x="-168" y="-42" width="336" height="84" rx="28" fill="#F2FBFD" stroke="${C.blueDeep}" stroke-width="4"/>${screenLine(-119, -13, 238, C.blueDeep, 0.78, 12)}${screenLine(-119, 19, 181, "#84C1D3", 0.7, 10)}</g>
@@ -224,7 +221,7 @@ function sceneBeast() {
     <rect x="35" y="45" width="1130" height="630" rx="32" fill="#E8C89F"/><circle cx="1015" cy="155" r="76" fill="#EFCFA4" opacity="0.78"/>
     <path d="M0 458 Q178 361 355 471 T715 452 T1200 432 L1200 720 L0 720 Z" fill="#E1BE91" opacity="0.7"/>
     <path d="M630 118 L840 285 L707 285 L707 538 L552 538 L552 285 L420 285 Z" fill="#4A4151" opacity="0.8"/><path d="M455 286 L601 154 L599 312 Z M809 286 L654 158 L665 313 Z" fill="#4A4151"/><rect x="590" y="373" width="82" height="165" rx="12" fill="#312A38"/>
-    ${beast(890, 385, 1.02)}${boyfriend(635, 437, 0.74)}${changchang(245, 402, 1.03, { bottle: true })}
+    ${bottle(315, 492, 1.1, 0.66, -10)}<path d="M690 592 q30 -24 60 0 q30 24 60 0 q30 -24 60 0" fill="none" stroke="#C49A70" stroke-width="7" stroke-linecap="round" opacity="0.7"/>
     ${drop(386, 342, 0.75, 0.74)}${sparkle(1070, 522, 0.74)}
   </g>`;
 }
@@ -232,7 +229,8 @@ function sceneBeast() {
 function sceneDay4() {
   return `<g>
     <rect x="42" y="54" width="535" height="610" rx="30" fill="#F3FAFB"/><rect x="623" y="54" width="535" height="610" rx="30" fill="#FFF2E9"/>
-    ${changchang(270, 421, 1.02, { phone: true })}${boyfriend(890, 432, 0.98, { ramen: true })}${beast(1082, 360, 0.53, { flip: true, collar: true })}
+    ${phone(282, 391, 1.14, "#2E435C", `<g><rect x="-48" y="-82" width="96" height="42" rx="16" fill="#BFE8F0"/><rect x="-48" y="-25" width="78" height="38" rx="14" fill="#FFD3D8"/><circle cx="40" cy="67" r="12" fill="#EF91A2"/></g>`)}
+    <g transform="translate(910 466)"><path d="M-158 -50 L158 -50 L126 106 L-126 106 Z" fill="#FFFDF9" stroke="${C.ink}" stroke-width="5"/><path d="M-150 -43 Q0 -81 150 -43" fill="none" stroke="#E0A46D" stroke-width="14"/><path d="M-105 -105 Q-60 -175 0 -118 T108 -151" fill="none" stroke="#E8E8E8" stroke-width="9" stroke-linecap="round"/></g>
     <g transform="translate(698 218) rotate(-4)"><rect x="-92" y="-70" width="184" height="140" rx="27" fill="#FFFDF9" stroke="${C.ink}" stroke-width="4"/>${screenLine(-60, -38, 110, C.coral, 0.62, 12)}${screenLine(-60, -8, 136, "#BFD8DE", 0.75, 10)}${screenLine(-60, 18, 90, "#BFD8DE", 0.75, 10)}<path d="M-18 70 L4 41 L27 70 Z" fill="#FFFDF9" stroke="${C.ink}" stroke-width="4"/></g>
     <path d="M601 54 V664" stroke="${C.ink}" stroke-width="5" stroke-dasharray="13 16" opacity="0.4"/>${heart(1018, 192, 0.8)}${sparkle(536, 146, 0.65)}
   </g>`;
@@ -241,9 +239,9 @@ function sceneDay4() {
 function sceneDay5() {
   return `<g>
     <rect x="46" y="70" width="704" height="560" rx="34" fill="#FFF6F3"/><path d="M99 154 H691" stroke="#EACAC6" stroke-width="4" opacity="0.55"/>
-    ${changchang(283, 405, 1.05, { bottle: true, armRaised: true })}
-    <g transform="translate(590 423)"><circle cx="0" cy="0" r="87" fill="${C.skin}" stroke="${C.ink}" stroke-width="4"/><path d="M-72 -35 Q0 -111 72 -35 Q48 -63 0 -57 Q-49 -64 -72 -35 Z" fill="#59443E"/><path d="M-36 -7 Q-29 -14 -21 -7 M21 -7 Q29 -14 36 -7" fill="none" stroke="${C.ink}" stroke-width="4" stroke-linecap="round"/><path d="M-10 23 Q0 33 11 22" fill="none" stroke="${C.ink}" stroke-width="3.3" stroke-linecap="round"/><circle cx="-50" cy="15" r="9" fill="#F4A4AE" opacity="0.5"/><circle cx="50" cy="15" r="9" fill="#F4A4AE" opacity="0.5"/></g>
-    <g transform="translate(935 360)"><path d="M-245 42 Q0 -82 245 42 L218 290 Q0 352 -218 290 Z" fill="#DBECEA" stroke="${C.ink}" stroke-width="5"/>${beast(0, 145, 0.79, { collar: true })}<path d="M-150 139 L-75 68 L-70 161 Z M149 139 L74 68 L69 161 Z" fill="#4A4151"/></g>
+    ${bottle(260, 404, 1.28, 0.7, -7)}${bottle(475, 404, 1.28, 0.45, 7)}
+    <g transform="translate(590 423)"><circle cx="0" cy="0" r="87" fill="#DDF7FC" stroke="${C.ink}" stroke-width="4"/><path d="M0 -19 C13 -2 25 11 25 29 C25 48 13 59 0 59 C-13 59 -25 48 -25 29 C-25 11 -13 -2 0 -19 Z" fill="${C.blueDeep}"/><path d="M-54 -49 Q0 -82 54 -49" fill="none" stroke="${C.coral}" stroke-width="8" stroke-linecap="round"/></g>
+    <g transform="translate(935 360)"><path d="M-245 42 Q0 -82 245 42 L218 290 Q0 352 -218 290 Z" fill="#DBECEA" stroke="${C.ink}" stroke-width="5"/><rect x="-122" y="40" width="244" height="108" rx="25" fill="#FFF8ED"/><path d="M-73 132 H73 M-15 132 V100 M15 132 V100" stroke="${C.blueDeep}" stroke-width="10" stroke-linecap="round"/></g>
     ${heart(900, 182, 1)}${sparkle(1111, 520, 0.75)}
   </g>`;
 }
@@ -251,10 +249,10 @@ function sceneDay5() {
 function sceneDay6() {
   return `<g>
     <rect x="42" y="54" width="535" height="610" rx="30" fill="#F1FAFC"/><rect x="623" y="54" width="535" height="610" rx="30" fill="#3F3A4C"/>
-    ${changchang(286, 419, 1.05, { phone: true })}${boyfriend(872, 445, 0.91)}${beast(1066, 396, 0.62, { flip: true })}
-    <rect x="698" y="176" width="210" height="144" rx="16" fill="#C9EFF5" stroke="${C.ink}" stroke-width="8"/><path d="M729 286 L770 237 L801 270 L838 221 L873 265" fill="none" stroke="#506F82" stroke-width="8" stroke-linecap="round"/><circle cx="746" cy="211" r="15" fill="#FFE39A"/>
+    ${phone(287, 421, 1.18, "#354B6D", `<g><rect x="-60" y="-96" width="120" height="78" rx="17" fill="#C9EFF5"/><path d="M-32 -57 l22 -24 19 19 27 -28" fill="none" stroke="#506F82" stroke-width="7" stroke-linecap="round"/><circle cx="50" cy="66" r="16" fill="#FFE39A"/></g>`)}
+    <rect x="698" y="176" width="330" height="258" rx="24" fill="#C9EFF5" stroke="${C.ink}" stroke-width="8"/><path d="M738 356 L810 270 L863 326 L929 239 L993 315" fill="none" stroke="#506F82" stroke-width="9" stroke-linecap="round"/><circle cx="785" cy="226" r="24" fill="#FFE39A"/>
     <path d="M637 54 V664" stroke="${C.ink}" stroke-width="5" stroke-dasharray="13 16" opacity="0.5"/>
-    <g transform="translate(703 508)"><rect x="-82" y="-40" width="164" height="80" rx="22" fill="#FFF7E8"/><circle cx="-38" cy="0" r="19" fill="#FFD3D8"/><path d="M12 -17 L35 0 L12 17 Z" fill="#FFD3D8"/><path d="M-52 -6 L-25 -6 M-52 8 L-31 8" stroke="#6E5C5A" stroke-width="4" stroke-linecap="round"/></g>
+    <g transform="translate(834 509)"><rect x="-104" y="-52" width="208" height="104" rx="28" fill="#FFF7E8"/><path d="M-58 15 V-19 L-24 15 L-58 15 Z M-9 15 V-19 L25 15 L-9 15 Z M42 15 V-19 L76 15 L42 15 Z" fill="#FFD3D8"/></g>
     ${heart(552, 126, 0.75)}${sparkle(1110, 144, 0.7)}
   </g>`;
 }
@@ -263,9 +261,9 @@ function sceneDay7() {
   return `<g>
     <rect x="48" y="66" width="1104" height="552" rx="34" fill="#FFF8ED"/>
     <rect x="92" y="111" width="681" height="306" rx="17" fill="#CBE5E8" stroke="${C.ink}" stroke-width="5"/><path d="M122 372 L271 229 L375 323 L503 181 L741 375" fill="none" stroke="#7FAFB9" stroke-width="7" opacity="0.68"/>
-    <rect x="754" y="141" width="336" height="165" rx="24" fill="#594855" opacity="0.92"/><circle cx="929" cy="223" r="52" fill="#F5C4B3"/><path d="M874 208 Q929 144 984 208 Q962 174 930 181 Q896 175 874 208 Z" fill="#493A3D"/><path d="M910 219 Q916 225 923 219 M947 219 Q954 225 960 219" fill="none" stroke="${C.ink}" stroke-width="4"/>
-    ${changchang(557, 506, 0.87)}${bottle(733, 502, 0.72, 0.82, 7)}
-    <rect x="836" y="491" width="291" height="111" rx="25" fill="#D7E8EA" stroke="${C.ink}" stroke-width="4"/>${beast(964, 535, 0.41, { collar: true })}
+    <rect x="754" y="141" width="336" height="165" rx="24" fill="#594855" opacity="0.92"/><path d="M810 228 q35 -42 70 0 t70 0 t70 0" fill="none" stroke="#F5C4B3" stroke-width="9" stroke-linecap="round"/><circle cx="929" cy="223" r="13" fill="#FFE39A"/>
+    ${bottle(733, 502, 0.9, 0.82, 7)}
+    <rect x="836" y="491" width="291" height="111" rx="25" fill="#D7E8EA" stroke="${C.ink}" stroke-width="4"/><path d="M887 548 q35 -34 70 0 q35 34 70 0" fill="none" stroke="${C.blueDeep}" stroke-width="10" stroke-linecap="round"/>
     ${drop(1040, 116, 0.54, 0.7)}${sparkle(1091, 446, 0.75)}
   </g>`;
 }
@@ -273,9 +271,10 @@ function sceneDay7() {
 function sceneDay8() {
   return `<g>
     <rect width="1200" height="720" fill="#443B4B"/><rect x="58" y="61" width="1084" height="598" rx="35" fill="#665B6C"/><path d="M0 492 H1200 V720 H0 Z" fill="#302A38"/>
-    <path d="M156 87 L371 380 H106 L156 87 Z M1050 88 L844 380 H1103 L1050 88 Z" fill="#342E3C"/>
+    <path d="M156 87 L371 380 H106 156 87 Z M1050 88 L844 380 H1103 L1050 88 Z" fill="#342E3C"/>
     <rect x="465" y="109" width="270" height="338" rx="23" fill="#9DC8D1" opacity="0.72"/><path d="M496 407 L600 197 L697 407" fill="none" stroke="#FFF2CC" stroke-width="7" opacity="0.65"/><circle cx="611" cy="186" r="45" fill="#FFE198" opacity="0.78"/>
-    ${changchang(464, 497, 0.98, { bottle: true, armRaised: true })}${boyfriend(741, 505, 0.94)}${beast(1010, 528, 0.62, { flip: true, collar: true })}
+    ${bottle(471, 520, 1.2, 0.76, -7)}${bottle(742, 520, 1.2, 0.76, 7)}
+    <g transform="translate(1010 518)"><rect x="-92" y="-54" width="184" height="108" rx="28" fill="#FFF7E8"/><text x="0" y="20" fill="#5A4C59" font-size="58" font-family="Microsoft YaHei, sans-serif" font-weight="700" text-anchor="middle">1</text></g>
     ${heart(610, 222, 1.1)}${drop(476, 283, 0.64, 0.8)}
   </g>`;
 }
@@ -284,7 +283,7 @@ function sceneDoor() {
   return `<g>
     <rect width="1200" height="720" rx="34" fill="#354B6D"/><path d="M0 525 H1200 V720 H0 Z" fill="#292C45" opacity="0.78"/>
     <rect x="769" y="94" width="272" height="500" rx="20" fill="#4DBCD6" opacity="0.32"/><rect x="795" y="111" width="220" height="482" rx="14" fill="#6ED2E8" stroke="#D6F8FF" stroke-width="9"/><path d="M910 111 V593 M795 352 H1015" stroke="#D6F8FF" stroke-width="5" opacity="0.62"/><circle cx="976" cy="351" r="9" fill="#FFF4CA"/>
-    ${changchang(451, 447, 1.13, { phone: true })}${drop(698, 323, 1.05, 0.88)}${drop(1086, 225, 0.66, 0.6)}${sparkle(724, 525, 0.88)}
+    ${bottle(480, 447, 1.32, 0.72, -7)}${drop(698, 323, 1.05, 0.88)}${drop(1086, 225, 0.66, 0.6)}${sparkle(724, 525, 0.88)}
     <g transform="translate(1015 207)"><path d="M-48 -23 Q0 -62 48 -23 L41 40 Q0 64 -41 40 Z" fill="#FFF8F1" opacity="0.9"/><path d="M-38 53 L-4 24 L20 55 Z" fill="#FFF8F1" opacity="0.9"/></g>
   </g>`;
 }
@@ -293,14 +292,13 @@ function sceneFinale() {
   return `<g>
     <rect x="42" y="54" width="535" height="610" rx="30" fill="#927D8D"/><rect x="623" y="54" width="535" height="610" rx="30" fill="#BFE9F0"/>
     ${Array.from({ length: 42 }, (_, i) => `<path d="M${66 + (i * 83) % 490} ${86 + (i * 47) % 520} l-4 18" stroke="#DDFAFF" stroke-width="4" stroke-linecap="round" opacity="0.72"/>`).join("")}
-    <path d="M42 464 Q180 413 316 474 T577 445 V664 H42 Z" fill="#86B99A" opacity="0.78"/>${beast(280, 416, 0.68, { tongue: true, collar: true, awake: false })}${bottle(405, 489, 0.52, 0.2, -24)}
+    <path d="M42 464 Q180 413 316 474 T577 445 V664 H42 Z" fill="#86B99A" opacity="0.78"/>${bottle(300, 489, 0.92, 0.18, -24)}
     <path d="M623 507 Q747 468 859 513 T1158 486 V664 H623 Z" fill="#93CFC3" opacity="0.68"/><path d="M670 504 Q773 456 881 507 T1127 461 V664 H670 Z" fill="#E9C49A"/>
     <rect x="715" y="331" width="84" height="173" rx="8" fill="#A6CCD1"/><rect x="827" y="286" width="104" height="218" rx="8" fill="#D6AF8F"/><rect x="957" y="358" width="92" height="146" rx="8" fill="#A6CCD1"/>
     <rect x="744" y="364" width="23" height="32" rx="5" fill="#FFE8A0"/><rect x="782" y="364" width="23" height="32" rx="5" fill="#FFE8A0"/><rect x="853" y="321" width="24" height="34" rx="5" fill="#FFE8A0"/><rect x="894" y="321" width="24" height="34" rx="5" fill="#FFE8A0"/>
-    ${changchang(791, 508, 0.84)}${boyfriend(898, 504, 0.84)}<path d="M823 432 Q853 395 889 430" fill="none" stroke="#E58A9B" stroke-width="14" stroke-linecap="round"/>${heart(857, 359, 0.95)}${heart(973, 188, 0.68)}${sparkle(1105, 200, 0.78)}
+    ${bottle(900, 520, 0.96, 0.68, 8)}${heart(857, 359, 0.95)}${heart(973, 188, 0.68)}${sparkle(1105, 200, 0.78)}
   </g>`;
 }
-
 const scenes = new Map([
   ["scene-cover.svg", sceneCover()], ["scene-01-phone.svg", scenePhone()], ["scene-02-task.svg", sceneTask()],
   ["scene-03-day1.svg", sceneDay1()], ["scene-04-pact.svg", scenePact()], ["scene-05-beast.svg", sceneBeast()],
