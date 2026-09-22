@@ -1,0 +1,20 @@
+{
+  "name": "畅畅宝宝，今天也要多喝水",
+  "short_name": "畅畅多喝水",
+  "description": "每天记录喝水量，一点点解锁九天水灵救援剧情。",
+  "lang": "zh-CN",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#fff8ef",
+  "theme_color": "#fff4ed",
+  "icons": [
+    {
+      "src": "assets/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

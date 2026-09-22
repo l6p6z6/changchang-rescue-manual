@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#fff4ed">
+  <meta name="description" content="畅畅宝宝的水灵救援打卡本，每天多喝一点水，离他回来就更近一点。">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="畅畅多喝水">
+  <title>畅畅宝宝，今天也要多喝水</title>
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/icon.svg">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page-shell">
+    <div class="sky-decor" aria-hidden="true">
+      <span class="cloud cloud-one"></span>
+      <span class="cloud cloud-two"></span>
+      <span class="floating-drop drop-one">♡</span>
+      <span class="floating-drop drop-two">♡</span>
+      <span class="floating-drop drop-three">♡</span>
+    </div>
+
+    <header class="hero">
+      <div class="hero-copy">
+        <div class="hero-kicker">
+          <span class="status-dot"></span>
+          <span id="streakLabel">水灵救援 · 第 1 天</span>
+        </div>
+        <p class="eyebrow">写给畅畅宝宝的专属打卡本</p>
+        <h1>《畅畅宝宝，<br><span>今天也要多喝水</span>》</h1>
+        <p class="hero-intro">每一杯水，都会变成一点水灵。<br>喝够今天的目标，就能翻开下一页救援剧情。</p>
+        <div class="hero-tags" aria-label="网站特色">
+          <span>♡ 自动累加</span>
+          <span>☁ 本机保存</span>
+          <span>✦ 九天剧情</span>
+        </div>
+      </div>
+      <div class="hero-art-wrap">
+        <div class="hero-sticker sticker-one">要多喝水呀</div>
+        <div class="hero-sticker sticker-two">水灵 +1</div>
+        <img class="hero-art" src="assets/scene-cover.svg" alt="畅畅拿着水瓶，手机里传来男朋友的求救消息">
+      </div>
+    </header>
+
+    <main>
+      <section class="dashboard" aria-labelledby="dashTitle">
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker">TODAY'S WATER</p>
+            <h2 id="dashTitle">今天的水灵收集</h2>
+          </div>
+          <button class="ghost-button" type="button" id="scrollStoryButton">看救援手账 ↓</button>
+        </div>
+
+        <div class="dashboard-grid">
+          <article class="bottle-card">
+            <div class="bottle-stage" aria-hidden="true">
+              <div class="bottle-glow"></div>
+              <div class="bottle" id="bottleVisual">
+                <div class="bottle-neck"></div>
+                <div class="bottle-cap"></div>
+                <div class="bottle-body">
+                  <div class="bottle-water" id="bottleWater">
+                    <span class="water-shine"></span>
+                    <span class="bubble bubble-a"></span>
+                    <span class="bubble bubble-b"></span>
+                    <span class="bubble bubble-c"></span>
+                  </div>
+                  <div class="bottle-face">
+                    <span class="eye eye-left"></span>
+                    <span class="eye eye-right"></span>
+                    <span class="smile"></span>
+                  </div>
+                  <div class="bottle-marks">
+                    <i></i><i></i><i></i><i></i>
+                  </div>
+                </div>
+              </div>
+              <div class="bottle-heart">♡</div>
+            </div>
+            <div class="bottle-summary">
+              <p class="today-amount"><strong id="todayAmount">0</strong><span> ml</span></p>
+              <p>今日目标 <b id="todayTarget">1000 ml</b></p>
+              <p class="progress-caption" id="progressCaption">还差 1000 ml，第一滴水灵正在等你。</p>
+            </div>
+          </article>
+
+          <div class="tracker-column">
+            <div class="progress-panel">
+              <div class="progress-topline">
+                <div>
+                  <span>今日完成度</span>
+                  <strong id="todayPercent">0%</strong>
+                </div>
+                <div class="day-pill" id="dayPill">DAY 1 / 9</div>
+              </div>
+              <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progressBar">
+                <span id="progressFill"></span>
+              </div>
+              <div class="mini-stats">
+                <div>
+                  <span>今日累计</span>
+                  <strong id="todayStat">0 ml</strong>
+                </div>
+                <div>
+                  <span>总喝水量</span>
+                  <strong id="totalStat">0 ml</strong>
+                </div>
+                <div>
+                  <span>连续完成</span>
+                  <strong id="streakStat">0 天</strong>
+                </div>
+              </div>
+            </div>
+
+            <form class="add-water-card" id="waterForm">
+              <div class="input-heading">
+                <div>
+                  <span class="icon-drop">◌</span>
+                  <label for="waterAmount">刚刚喝了多少水？</label>
+                </div>
+                <span class="save-note">自动保存</span>
+              </div>
+              <div class="amount-row">
+                <div class="amount-input-wrap">
+                  <input id="waterAmount" name="waterAmount" type="number" min="1" max="5000" inputmode="numeric" step="1" placeholder="输入 ml" autocomplete="off" required>
+                  <span>ml</span>
+                </div>
+                <button class="add-button" type="submit">
+                  <span>+</span>
+                  加进今天
+                </button>
+              </div>
+              <div class="quick-adds" aria-label="快捷加水">
+                <button type="button" data-amount="100">+100</button>
+                <button type="button" data-amount="200">+200</button>
+                <button type="button" data-amount="300">+300</button>
+                <button type="button" data-amount="500">+500</button>
+              </div>
+              <p class="cap-note" id="capNote">每天剧情上限为当天目标；超出部分仍会累加进总喝水量。</p>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <section class="story-section" id="storySection" aria-labelledby="storyTitle">
+        <div class="section-heading story-heading">
+          <div>
+            <p class="section-kicker">RESCUE DIARY</p>
+            <h2 id="storyTitle">畅畅的救援手账</h2>
+            <p class="section-desc">喝水越多，剧情一页页展开。已经解锁的故事可以随时回来重看。</p>
+          </div>
+          <div class="story-progress-badge">
+            <strong id="unlockedCount">1</strong>
+            <span>/ <b id="storyCount">12</b> 章</span>
+          </div>
+        </div>
+        <div class="story-timeline" id="storyTimeline"></div>
+      </section>
+
+      <section class="records-section" aria-labelledby="recordsTitle">
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker">WATER LOG</p>
+            <h2 id="recordsTitle">今天的喝水记录</h2>
+          </div>
+          <button class="ghost-button danger-ghost" type="button" id="clearTodayButton">清空今天</button>
+        </div>
+        <div class="records-list" id="recordsList"></div>
+        <div class="empty-records" id="emptyRecords">
+          <span>♡</span>
+          <p>还没有记录，喝下第一杯就来记一笔吧。</p>
+        </div>
+      </section>
+
+      <section class="memory-section" aria-labelledby="memoryTitle">
+        <div class="memory-card">
+          <div class="memory-icon">☁</div>
+          <div>
+            <h2 id="memoryTitle">只保存在你正在使用的浏览器里</h2>
+            <p>不需要注册，也不会把喝水记录发到服务器。换手机或清理浏览器数据前，可以导出一份小备份。</p>
+          </div>
+          <div class="memory-actions">
+            <button type="button" id="exportButton">导出备份</button>
+            <label class="import-button">
+              导入备份
+              <input type="file" id="importInput" accept=".json,application/json">
+            </label>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>愿畅畅宝宝每天都被好好照顾，也记得喝温水。♡</p>
+      <button type="button" id="resetButton">重新开始九天</button>
+    </footer>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <div class="confetti-layer" id="confettiLayer" aria-hidden="true"></div>
+
+  <script src="story.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
