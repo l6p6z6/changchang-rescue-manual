@@ -2,12 +2,18 @@
   const STORAGE_KEY = "changchang-water-v2";
   const LEGACY_KEY = "changchang-water-diary-v1";
   const STORIES = window.STORY_DATA.story;
-  const UNLOCK_AT = [0, 100, 1000, 2000, 3000, 4250, 5750, 7375, 9125, 11000, 13000, 14500];
+  const UNLOCK_AT = [0, 100, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000];
+  const DAILY_LIMIT = 1000;
+  const PRAISE_MESSAGES = ["宝贝蒸蚌！", "表扬宝宝", "畅畅是乖宝宝"];
   const $ = (selector) => document.querySelector(selector);
   const $$ = (selector) => Array.from(document.querySelectorAll(selector));
 
   const els = {
     totalAmount: $("#totalAmount"),
+    dailyLimitBox: $("#dailyLimitBox"),
+    dailyAmount: $("#dailyAmount"),
+    dailyLimit: $("#dailyLimit"),
+    dailyLimitHint: $("#dailyLimitHint"),
     lastAdded: $("#lastAdded"),
     waterCard: $(".water-card"),
     manualCount: $("#manualCount"),
@@ -31,6 +37,9 @@
     playerNext: $("#playerNext"),
     playerEnd: $("#playerEnd"),
     playerClose: $("#playerClose"),
+    praiseLayer: $("#praiseLayer"),
+    praiseText: $("#praiseText"),
+    praiseEmojis: $("#praiseEmojis"),
     toast: $("#toast")
   };
 
@@ -41,6 +50,9 @@
   let currentLineIndex = 0;
   let playerTimer = null;
   let playerPlaying = false;
+  let praiseIndex = 0;
+  let praiseTimer = null;
+  let praiseHideTimer = null;
 
   function uid() {
     if (window.crypto && typeof window.crypto.randomUUID === "function") return window.crypto.randomUUID();
@@ -68,10 +80,20 @@
     return UNLOCK_AT[storyId] ?? 0;
   }
 
+  function localDateKey(date = new Date()) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  }
+
   function freshState() {
     return {
-      version: 3,
+      version: 4,
       totalMl: 0,
+      progressMl: 0,
+      dailyMl: 0,
+      dailyDate: localDateKey(),
       unlocked: [0],
       entries: [],
       lastAddedAt: null,
@@ -100,7 +122,7 @@
     const normalized = {
       ...base,
       ...saved,
-      version: 3,
+      version: 4,
       totalMl: Math.max(0, Math.round(Number(saved.totalMl) || 0)),
       unlocked: Array.isArray(saved.unlocked) ? Array.from(new Set(saved.unlocked.map(Number))) : [0],
       entries: Array.isArray(saved.entries) ? saved.entries : []
@@ -111,6 +133,12 @@
       .sort((a, b) => a - b);
 
     if (!normalized.unlocked.includes(0)) normalized.unlocked.unshift(0);
+
+    const fallbackProgress = Number.isFinite(Number(saved.progressMl)) ? Number(saved.progressMl) : normalized.totalMl;
+    const highestUnlockedAmount = normalized.unlocked.reduce((max, id) => Math.max(max, unlockAmount(id)), 0);
+    normalized.progressMl = Math.max(0, Math.round(fallbackProgress), highestUnlockedAmount);
+    normalized.dailyMl = Math.min(DAILY_LIMIT, Math.max(0, Math.round(Number(saved.dailyMl) || 0)));
+    normalized.dailyDate = typeof saved.dailyDate === "string" ? saved.dailyDate : localDateKey();
     return normalized;
   }
 
@@ -134,10 +162,18 @@
     }
   }
 
+  function ensureDailyState() {
+    const today = localDateKey();
+    if (state.dailyDate === today) return false;
+    state.dailyDate = today;
+    state.dailyMl = 0;
+    return true;
+  }
+
   function syncUnlocks() {
     const newlyUnlocked = [];
     for (const story of STORIES) {
-      if (state.totalMl >= unlockAmount(story.id) && !state.unlocked.includes(story.id)) {
+      if (state.progressMl >= unlockAmount(story.id) && !state.unlocked.includes(story.id)) {
         state.unlocked.push(story.id);
         newlyUnlocked.push(story.id);
       }
@@ -147,8 +183,17 @@
   }
 
   function render() {
+    ensureDailyState();
     const total = Math.round(state.totalMl);
+    const dailyCounted = Math.min(DAILY_LIMIT, Math.max(0, Math.round(state.dailyMl)));
+    const dailyRemaining = Math.max(0, DAILY_LIMIT - dailyCounted);
     els.totalAmount.textContent = formatNumber(total);
+    els.dailyAmount.textContent = formatNumber(dailyCounted);
+    els.dailyLimit.textContent = formatNumber(DAILY_LIMIT);
+    els.dailyLimitBox.classList.toggle("is-capped", dailyRemaining === 0);
+    els.dailyLimitHint.textContent = dailyRemaining > 0
+      ? `今天还可计入 ${formatMl(dailyRemaining)} 剧情进度，超出部分仍会记录，但不会提前解锁。`
+      : "今日剧情进度已达上限，继续喝水仍会记录，但不会提前解锁下一天。";
     els.manualCount.textContent = `${state.unlocked.length} / ${STORIES.length}`;
     els.manualProgress.textContent = `${state.unlocked.length} / ${STORIES.length}`;
 
@@ -171,7 +216,7 @@
     const start = storyId > 0 ? unlockAmount(storyId - 1) : 0;
     const end = unlockAmount(storyId);
     const span = Math.max(1, end - start);
-    return Math.min(99, Math.max(0, Math.round(((state.totalMl - start) / span) * 100)));
+    return Math.min(99, Math.max(0, Math.round(((state.progressMl - start) / span) * 100)));
   }
 
   function renderManual() {
@@ -181,7 +226,7 @@
       const progress = progressForStory(story.id);
       const description = unlocked
         ? "点击重新播放这一章"
-        : `累计喝到 ${formatMl(amount)} 后解锁`;
+        : `剧情进度达到 ${formatMl(amount)} 后解锁`;
 
       return `
         <button class="chapter-card ${unlocked ? "" : "locked"}" type="button" data-story-id="${story.id}" aria-label="${escapeHtml(story.title)}" aria-disabled="${unlocked ? "false" : "true"}">
@@ -201,6 +246,36 @@
     els.toast.textContent = message;
     els.toast.classList.add("show");
     toastTimer = setTimeout(() => els.toast.classList.remove("show"), duration);
+  }
+
+  function showPraise() {
+    clearTimeout(praiseTimer);
+    clearTimeout(praiseHideTimer);
+
+    const message = PRAISE_MESSAGES[praiseIndex % PRAISE_MESSAGES.length];
+    praiseIndex += 1;
+    els.praiseText.textContent = message;
+    els.praiseEmojis.innerHTML = Array.from({ length: 14 }, (_, index) => {
+      const emoji = index % 2 === 0 ? "😚" : "❤️";
+      const x = 7 + (index * 29) % 86;
+      const y = 11 + (index * 37) % 76;
+      const size = 30 + (index % 4) * 11;
+      const delay = (index % 5) * 0.055;
+      const rotate = -22 + (index * 13) % 44;
+      return `<span class="praise-emoji" style="--x:${x}%;--y:${y}%;--size:${size}px;--delay:${delay}s;--rotate:${rotate}deg">${emoji}</span>`;
+    }).join("");
+
+    els.praiseLayer.hidden = false;
+    els.praiseLayer.classList.remove("show");
+    void els.praiseLayer.offsetWidth;
+    els.praiseLayer.classList.add("show");
+
+    praiseTimer = setTimeout(() => {
+      els.praiseLayer.classList.remove("show");
+      praiseHideTimer = setTimeout(() => {
+        els.praiseLayer.hidden = true;
+      }, 220);
+    }, 1500);
   }
 
   function lockBody() {
@@ -233,14 +308,25 @@
       return;
     }
 
+    ensureDailyState();
+    const countableAmount = Math.min(numeric, Math.max(0, DAILY_LIMIT - state.dailyMl));
     state.totalMl += numeric;
+    state.progressMl += countableAmount;
+    state.dailyMl += countableAmount;
     state.lastAddedAmount = numeric;
     state.lastAddedAt = new Date().toISOString();
-    state.entries.push({ id: uid(), amount: numeric, timestamp: state.lastAddedAt });
+    state.entries.push({
+      id: uid(),
+      amount: numeric,
+      countedAmount: countableAmount,
+      countedForStory: countableAmount > 0,
+      timestamp: state.lastAddedAt
+    });
 
     const unlocked = syncUnlocks();
     saveState();
     render();
+    showPraise();
 
     els.waterCard.classList.remove("is-updating");
     void els.waterCard.offsetWidth;
@@ -252,7 +338,12 @@
       pendingStories.push(...unlocked);
       const newest = STORIES.find((story) => story.id === unlocked[unlocked.length - 1]);
       showToast(`新的救援故事已解锁：${newest.title}`, 2600);
-      setTimeout(openNextQueuedStory, 560);
+      setTimeout(openNextQueuedStory, 650);
+      return;
+    }
+
+    if (countableAmount < numeric) {
+      showToast(`已记录 ${formatMl(numeric)}；今日剧情进度增加 ${formatMl(countableAmount)}。`, 2800);
       return;
     }
 
@@ -267,10 +358,14 @@
 
   function renderStoryText(text) {
     const total = formatMl(state.totalMl);
+    const daily = formatMl(state.dailyMl);
+    const dailyLimit = formatMl(DAILY_LIMIT);
     return String(text)
       .replaceAll("{{total}}", total)
       .replaceAll("{{totalMl}}", total)
-      .replaceAll("{{remaining}}", formatMl(Math.max(0, UNLOCK_AT[UNLOCK_AT.length - 1] - state.totalMl)));
+      .replaceAll("{{daily}}", daily)
+      .replaceAll("{{dailyLimit}}", dailyLimit)
+      .replaceAll("{{remaining}}", formatMl(Math.max(0, UNLOCK_AT[UNLOCK_AT.length - 1] - state.progressMl)));
   }
 
   function createStoryLine(line) {
@@ -427,7 +522,7 @@
 
     const id = Number(card.dataset.storyId);
     if (!state.unlocked.includes(id)) {
-      showToast(`累计喝到 ${formatMl(unlockAmount(id))} 后解锁。`, 2400);
+      showToast(`剧情进度达到 ${formatMl(unlockAmount(id))} 后解锁。`, 2400);
       return;
     }
 
@@ -448,6 +543,7 @@
     else if (!els.manualOverlay.hidden) closeManual();
   });
 
+  ensureDailyState();
   const newlyUnlocked = syncUnlocks();
   if (newlyUnlocked.length) pendingStories.push(newlyUnlocked[newlyUnlocked.length - 1]);
   saveState();

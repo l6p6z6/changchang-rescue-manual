@@ -40,6 +40,12 @@
         </div>
         <p class="last-added" id="lastAdded">还没有记录，先喝一杯水吧。</p>
 
+        <div class="daily-limit" id="dailyLimitBox">
+          <span>今日剧情进度</span>
+          <strong><b id="dailyAmount">0</b> / <b id="dailyLimit">1,000</b> ml</strong>
+          <small id="dailyLimitHint">今天最多计入 1,000 ml 剧情进度。</small>
+        </div>
+
         <form class="water-form" id="waterForm">
           <label for="waterAmount">增加喝水量</label>
           <div class="input-row">
@@ -62,6 +68,11 @@
     </main>
   </div>
 
+  <div class="praise-layer" id="praiseLayer" role="status" aria-live="polite" hidden>
+    <div class="praise-emojis" id="praiseEmojis" aria-hidden="true"></div>
+    <div class="praise-text" id="praiseText">宝贝蒸蚌！</div>
+  </div>
+
   <div class="overlay manual-overlay" id="manualOverlay" hidden>
     <section class="manual-sheet" role="dialog" aria-modal="true" aria-labelledby="manualTitle">
       <header class="sheet-header">
@@ -73,7 +84,7 @@
       </header>
 
       <div class="manual-summary">
-        <span>每达到一个喝水里程碑，就会自动播放一段新的故事。</span>
+        <span>每天最多计入 1,000 ml 剧情进度，达到里程碑后自动播放故事。</span>
         <strong id="manualProgress">1 / 12</strong>
       </div>
 

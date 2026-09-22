@@ -1,4 +1,4 @@
-const CACHE_NAME = "changchang-water-v4";
+const CACHE_NAME = "changchang-water-v5";
 const APP_SHELL = [
   "./",
   "./index.html",
